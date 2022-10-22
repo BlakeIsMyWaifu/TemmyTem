@@ -146,7 +146,7 @@ export const temtemData: TemTem[] = [
 	},
 	{
 		number: 26,
-		name: 'Wilplump',
+		name: 'Wiplump',
 		type: ['water', 'wind']
 	},
 	{

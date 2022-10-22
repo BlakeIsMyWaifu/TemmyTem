@@ -1,10 +1,11 @@
-import { Container, Title } from '@mantine/core'
-import type { NextPage } from 'next'
+import { Container } from '@mantine/core'
+import TemTemInput from 'components/TemTemInput'
+import { type NextPage } from 'next'
 
 const Home: NextPage = () => {
 	return (
 		<Container>
-			<Title>Hello World</Title>
+			<TemTemInput />
 		</Container>
 	)
 }
