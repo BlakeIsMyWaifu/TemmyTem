@@ -110,7 +110,7 @@ export const temtemData: TemTem[] = [
 	{
 		number: 21,
 		name: 'Bunbun',
-		type: ['earth', 'fire']
+		type: ['earth', 'crystal']
 	},
 	{
 		number: 22,
