@@ -1,4 +1,4 @@
-import { Avatar, Badge, Container, ScrollArea, Table } from '@mantine/core'
+import { Avatar, Badge, Container, ScrollArea, Table, Text, Tooltip } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { type TemTem, temtemData } from 'data/temtem'
 import { typeMatchupData } from 'data/typeMatchup'
@@ -74,9 +74,31 @@ const MatchupTable: FC = () => {
 					<tbody>
 						{
 							temtemData.filter(temtemData => temtemData.name.toLowerCase().includes(searchValue)).map(temtemData => {
+								const tooltipText = [
+									`${temtemData.name} #${temtemData.number}`,
+									`${temtemData.type[0]} ${temtemData.type[1] ?? ''}`
+								]
 								return <tr key={temtemData.name}>
 									<td><Avatar src={`/images/TemTem/${temtemData.name}.png`} /></td>
-									<td>{temtemData.name}</td>
+									<td>
+										<Tooltip
+											withArrow
+											label={tooltipText.join('\n')}
+											transition='fade'
+											transitionDuration={200}
+											styles={{
+												tooltip: {
+													whiteSpace: 'pre-wrap',
+													minHeight: 'min-content',
+													textTransform: 'capitalize'
+												}
+											}}
+										>
+											<Text>
+												{temtemData.name}
+											</Text>
+										</Tooltip>
+									</td>
 									<Matchups type={temtemData.type} />
 								</tr>
 							})
