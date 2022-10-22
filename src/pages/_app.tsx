@@ -1,8 +1,13 @@
 import { MantineProvider, Stack } from '@mantine/core'
+import Header from 'components/Header'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useSettingsStore } from 'state/settingsStore'
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+
+	const theme = useSettingsStore(state => state.theme)
+
 	return (
 		<>
 			<Head>
@@ -16,10 +21,11 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 				withGlobalStyles
 				withNormalizeCSS
 				theme={{
-					colorScheme: 'dark'
+					colorScheme: theme
 				}}
 			>
 				<Stack>
+					<Header />
 					<Component {...pageProps} />
 				</Stack>
 			</MantineProvider>
