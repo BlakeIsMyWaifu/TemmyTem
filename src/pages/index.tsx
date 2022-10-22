@@ -1,12 +1,13 @@
-import { Container } from '@mantine/core'
+import MatchupTable from 'components/MatchupTable'
 import TemTemInput from 'components/TemTemInput'
 import { type NextPage } from 'next'
 
 const Home: NextPage = () => {
 	return (
-		<Container>
+		<>
 			<TemTemInput />
-		</Container>
+			<MatchupTable />
+		</>
 	)
 }
 

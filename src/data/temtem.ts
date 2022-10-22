@@ -1,22 +1,10 @@
-interface TemTem {
+import type { Types } from './typeMatchup'
+
+export interface TemTem {
 	number: number;
 	name: string;
 	type: [Types] | [Types, Types];
 }
-
-type Types =
-	| 'neutral'
-	| 'wind'
-	| 'earth'
-	| 'water'
-	| 'fire'
-	| 'nature'
-	| 'electric'
-	| 'mental'
-	| 'digital'
-	| 'melee'
-	| 'crystal'
-	| 'toxic'
 
 export const temtemData: TemTem[] = [
 	{

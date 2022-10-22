@@ -17,4 +17,4 @@ export const useSettingsStore = create<SettingsStore>()(devtools(set => ({
 			theme: theme ?? state.theme === 'light' ? 'dark' : 'light'
 		}), ...settingsActionName('toggleTheme'))
 	}
-})))
+}), { name: 'Settings' }))

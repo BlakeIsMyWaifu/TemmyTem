@@ -2,4 +2,5 @@ const createActionName = (storeName: string) => (actionName: string): [false, st
 
 export const gameActionName = createActionName('game')
 
+export const matchupActionName = createActionName('matchup')
 export const settingsActionName = createActionName('settings')
