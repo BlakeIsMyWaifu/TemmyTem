@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface windowSize {
 	height: number;
@@ -9,8 +9,7 @@ export const useWindowSize = (): windowSize => {
 
 	const [size, setSize] = useState<[number, number]>([0, 0])
 
-	useLayoutEffect(() => {
-
+	useEffect(() => {
 		const updateSize = (): void => {
 			setSize([window.innerWidth, window.innerHeight])
 		}

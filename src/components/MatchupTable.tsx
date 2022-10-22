@@ -1,5 +1,6 @@
-import { Avatar, Badge, Container, createStyles, ScrollArea, Table, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Avatar, Badge, Container, createStyles, ScrollArea, Table, Text, Tooltip } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
+import { IconPin } from '@tabler/icons'
 import { type TemTem, temtemData } from 'data/temtem'
 import { typeMatchupData } from 'data/typeMatchup'
 import useWindowSize from 'hooks/useWindowSize'
@@ -65,6 +66,7 @@ const MatchupTable: FC = () => {
 	const { classes, cx } = useStyles()
 
 	const searchValue = useMatchupStore(state => state.searchValue).toLowerCase()
+	const { pinnedTemTems, togglePinnedTemTem } = useMatchupStore()
 
 	const isLargeScreen = useMediaQuery('(min-width: 768px)')
 
@@ -102,11 +104,12 @@ const MatchupTable: FC = () => {
 							<th>Melee</th>
 							<th>Crystal</th>
 							<th>Toxic</th>
+							<th />
 						</tr>
 					</thead>
 					<tbody>
 						{
-							temtemData.filter(temtemData => temtemData.name.toLowerCase().includes(searchValue)).map(temtemData => {
+							temtemData.filter(temtemData => temtemData.name.toLowerCase().includes(searchValue) || pinnedTemTems.includes(temtemData.name)).map(temtemData => {
 								const tooltipText = [
 									`${temtemData.name} #${temtemData.number}`,
 									`${temtemData.type[0]} ${temtemData.type[1] ?? ''}`
@@ -133,6 +136,15 @@ const MatchupTable: FC = () => {
 										</Tooltip>
 									</td>
 									<Matchups type={temtemData.type} />
+									<td>
+										<ActionIcon
+											variant='light'
+											color={pinnedTemTems.includes(temtemData.name) ? 'blue' : 'gray'}
+											onClick={() => togglePinnedTemTem(temtemData.name)}
+										>
+											<IconPin />
+										</ActionIcon>
+									</td>
 								</tr>
 							})
 						}
