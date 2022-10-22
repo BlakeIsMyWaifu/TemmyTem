@@ -1,8 +1,9 @@
-import { Avatar, Badge, Container, ScrollArea, Table, Text, Tooltip } from '@mantine/core'
+import { Avatar, Badge, Container, createStyles, ScrollArea, Table, Text, Tooltip } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { type TemTem, temtemData } from 'data/temtem'
 import { typeMatchupData } from 'data/typeMatchup'
-import { type FC } from 'react'
+import useWindowSize from 'hooks/useWindowSize'
+import { useState, type FC } from 'react'
 import { useMatchupStore } from 'state/matchupStore'
 
 const colours: Record<number, string> = {
@@ -36,24 +37,56 @@ const Matchups: FC<MatchupsProps> = ({ type }) => {
 	)
 }
 
+const useStyles = createStyles(theme => ({
+	header: {
+		position: 'sticky',
+		zIndex: 2,
+		top: 0,
+		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+		transition: 'box-shadow 150ms ease',
+
+		'&::after': {
+			content: '""',
+			position: 'absolute',
+			left: 0,
+			right: 0,
+			bottom: 0,
+			borderBottom: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[2]}`
+		}
+	},
+
+	scrolled: {
+		boxShadow: theme.shadows.sm
+	}
+}))
+
 const MatchupTable: FC = () => {
+
+	const { classes, cx } = useStyles()
 
 	const searchValue = useMatchupStore(state => state.searchValue).toLowerCase()
 
 	const isLargeScreen = useMediaQuery('(min-width: 768px)')
+
+	const [scrolled, setScrolled] = useState(false)
+
+	const { height } = useWindowSize()
 
 	return (
 		<Container sx={{
 			maxWidth: '1600px',
 			width: '100%'
 		}}>
-			<ScrollArea>
+			<ScrollArea
+				sx={{ height: height / 1.5 }}
+				onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+			>
 				<Table
 					highlightOnHover
 					fontSize={isLargeScreen ? 'md' : 'xs'}
 					horizontalSpacing={isLargeScreen ? 'md' : 'xs'}
 				>
-					<thead>
+					<thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
 						<tr>
 							<th />
 							<th />
